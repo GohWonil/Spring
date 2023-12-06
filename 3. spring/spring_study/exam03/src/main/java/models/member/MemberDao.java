@@ -16,7 +16,8 @@ public class MemberDao {
     return members.containsKey(userId);
   }
   //저장된 회원 목록
-  public List<Member> getlist(){
+  public List<Member> getList(){
     return new ArrayList<>(members.values());
   }
+
 }
