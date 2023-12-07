@@ -1,6 +1,6 @@
-package proxyex;
+package aopex;
 
-public class RecCalculator implements Calculator{
+public class RecCalculator implements Calculator {
   @Override
   public long factorial(long num) {
     if(num < 1L){
