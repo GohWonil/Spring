@@ -4,19 +4,14 @@ import commons.exceptions.BadRequestException;
 import commons.valdators.RequiredValidator;
 import commons.valdators.Valdator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JoinValidator implements Valdator<Member>, RequiredValidator {
 //  private MemberDao memberDao = new MemberDao(); 사용하게되면 나중에 유지보수(변경)이 힘들다
   @Autowired
-//  @Qualifier("memberDao")
   private MemberDao memberDao;
-  public JoinValidator(){}
-  public JoinValidator(MemberDao memberDao){
-    this.memberDao = memberDao;
-  }
+
   public void validate(Member member){
     //필수 항목 검증(아이디, 비밀번호, 비밀번호 확인, 회원명)
     String userId = member.getUserId();
