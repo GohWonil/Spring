@@ -13,14 +13,19 @@ public class Ex04 {  //핵심 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         "VALUES (SEQ_MEMBER.nextval, ?, ?, ?, ?)";
 
     try(Connection conn = DriverManager.getConnection(url, username, password);
-      PreparedStatement pstmt = conn.prepareStatement(sql)) {
-      pstmt.setString(1, "USER02");
+      PreparedStatement pstmt = conn.prepareStatement(sql, new String[]{"USER_NO"})) {
+      pstmt.setString(1, "USER05");
       pstmt.setString(2, "123456");
-      pstmt.setString(3, "사용자02");
-      pstmt.setString(4, "USER02@TEST.ORG");
+      pstmt.setString(3, "사용자05");
+      pstmt.setString(4, "USER05@TEST.ORG");
 
       int result = pstmt.executeUpdate();
-      System.out.println(result);
+
+      ResultSet rs = pstmt.getGeneratedKeys();
+      if(rs.next()){
+        long userNo = rs.getLong(1);
+        System.out.printf("USER_NO :%d%n", userNo);
+      }
 
     }catch (SQLException e){
       e.printStackTrace();
