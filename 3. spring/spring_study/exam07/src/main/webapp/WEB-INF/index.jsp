@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -8,6 +9,6 @@
   <title>Document</title>
 </head>
 <body>
-<h2>안녕</h2>
+<h1>첫방문을 환영합니다.</h1>
 </body>
 </html>
