@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+</head>
+<body>
+  <th:block th:object="${member}">
+      <h1 th:text="${pageTitle}"></h1>
+    <!--  <div th:text="*{#messages.msg("사용자01", "user01")}"-->
+      <a th:href="@{/member/login(userId=*{userId}, userNm=*{userNm})}">로그인</a>
+
+      <a th:href="@{/member/info/{id}(id=*{userId})}">회원 정보</a>
+      <dl>
+        <dd th:text="#{아이디}"></dd>
+        <dd>[[*{userId}]]</dd>
+      </dl>
+      <dl>
+        <dd th:text="#{회원명}"></dd>
+        <dd th:utext="*{userNm}">이이름</dd>
+      </dl>
+    </th:block>
+</body>
+</html>

@@ -9,25 +9,38 @@ import models.member.Member;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
 public class MemberController {
+//  @GetMapping("/member/join")
+//  public String join(Model model){
+//    Member member = Member.builder()
+//        .userNo(1L)
+//        .userPw("1234")
+//        .userId("user01")
+//        .userNm("<h1>사용자01</h1>")
+//        .email("user01@test.org")
+//        .regDt(LocalDateTime.now())
+//        .build();
+//
+//    model.addAttribute("member", member);
+//    model.addAttribute("pageTitle","회원가입");
+//    return "member/join";
+//  }
   @GetMapping("/member/join")
-  public String join(Model model){
-    Member member = Member.builder()
-        .userNo(1L)
-        .userPw("1234")
-        .userId("user01")
-        .userNm("<h1>사용자01</h1>")
-        .email("user01@test.org")
-        .regDt(LocalDateTime.now())
-        .build();
+  public String join(Model model) {
+    String[] addCss = {"member/style1", "member/style2"};
+    List<String> addScript = Arrays.asList("member/scrip1.js", "member/script2.js");
 
-    model.addAttribute("member", member);
-    model.addAttribute("pageTitle","회원가입");
+    model.addAttribute("addCss",addCss);
+    model.addAttribute("addScript", addScript);
+    model.addAttribute("pageTitle", "회원가입");
+
     return "member/join";
   }
+
   @PostMapping("/member/join")
   public String joinPs(RequestJoin form){
     System.out.println(form);
@@ -46,7 +59,7 @@ public class MemberController {
   @GetMapping("/member/list")
   public String members(Model model){
     List<Member> members = new ArrayList<>();
-    for(int i = 1; i <= 10; i++){
+    for(int i = 1; i <= 5; i++){
       Member member = Member.builder()
           .userNo(Long.valueOf(i))
           .userPw("1234")
@@ -57,7 +70,7 @@ public class MemberController {
           .build();
       members.add(member);
     }
-    model.addAttribute("members",members);
+    model.addAttribute("members", members);
 
     return "member/list";
   }
