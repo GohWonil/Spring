@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import models.member.Member;
@@ -19,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
   private final JoinValidator joinValidator; // @RequiredArgsConstructor 생성자 매개변수
-
+  private final JoinService joinService;
   @ModelAttribute("hobbies")
   public List<String> hobbies() {
     return Arrays.asList("자바", "오라클", "JSP", "스프링");
@@ -63,6 +64,8 @@ public class MemberController {
     if(errors.hasErrors()) { //검증 실패시
       return "member/join";
     }
+//    회원가입 처리
+    joinService.join(form);
 //    System.out.println(form);
 //    model.addAttribute("requestJoin", form);
 
@@ -98,4 +101,8 @@ public class MemberController {
     return "member/list";
   }
 
+  @InitBinder
+  protected void initBinder(WebDataBinder binder){
+    binder.setValidator(joinValidator);
+  }
 }
