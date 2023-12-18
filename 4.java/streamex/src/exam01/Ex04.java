@@ -15,7 +15,7 @@ public class Ex04 {
   public static List<String> map(List<String> words, UnaryOperator<String> oper){
     List<String> converted = new ArrayList<>();
     for(String word : words){
-      String word2 = oper.apply(word);
+      String word2 = oper.apply(word); // apply -> words, s -> s.toUpperCase() 사용자 정의
       converted.add(word2);
     }
     return converted;
