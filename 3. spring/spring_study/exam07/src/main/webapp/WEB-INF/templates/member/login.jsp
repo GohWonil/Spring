@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <form method="post">
   <dl>
     <dt>아이디</dt>

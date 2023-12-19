@@ -1,5 +1,6 @@
-package controllers.member;
+package models.member;
 
+import controllers.member.RequestJoin;
 import lombok.RequiredArgsConstructor;
 import models.member.Member;
 import models.member.MemberDao;

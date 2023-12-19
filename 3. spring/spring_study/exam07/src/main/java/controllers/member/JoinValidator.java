@@ -10,6 +10,7 @@ import org.springframework.validation.Validator;
 @Component
 @RequiredArgsConstructor
 public class JoinValidator implements Validator {
+
   private final MemberDao memberDao;
   @Override
   public boolean supports(Class<?> clazz) { //검증 커맨드 객체를 제한
@@ -31,7 +32,7 @@ public class JoinValidator implements Validator {
      * 5. 이메일 값은 필수는 아니지만 값이 있으면 형식 체크   @Email
      * 6. 비밀번호, 비밀번호 확인 일치여부          개발자가 직접해야함
      */
-    RequestJoin form = (RequestJoin) target;
+    RequestJoin form = (RequestJoin)target;
 
     //중복 아이디 여부 체크
     String userId = form.getUserId();

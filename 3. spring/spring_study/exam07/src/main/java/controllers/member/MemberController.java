@@ -1,7 +1,10 @@
 package controllers.member;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import models.member.JoinService;
+import models.member.LoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -21,6 +24,8 @@ import java.util.List;
 public class MemberController {
   private final JoinValidator joinValidator; // @RequiredArgsConstructor 생성자 매개변수
   private final JoinService joinService;
+  private final LoginValidator loginValidator;
+  private final LoginService loginService;
   @ModelAttribute("hobbies")
   public List<String> hobbies() {
     return Arrays.asList("자바", "오라클", "JSP", "스프링");
@@ -72,15 +77,30 @@ public class MemberController {
     return "redirect:/member/login"; //사이트 이동
 //    return "forward:/member/login"; //주소를 바꾸지 않고 버퍼만 바뀜
   }
-  @GetMapping("/login")
-  public String login(){
+  @GetMapping("/login") // /member/login
+  public String login(@ModelAttribute RequestLogin form) {
 
     return "member/login";
   }
-  @PostMapping("/login")
-  public String loginPs(RequestLogin form){
-    System.out.println(form);
-   return "member/login";
+  @PostMapping("/login") // /member/login
+  public String loginPs(@Valid RequestLogin form, Errors errors) {
+
+    loginValidator.validate(form, errors);
+
+    if (errors.hasErrors()) {
+      return "member/login";
+    }
+
+    //로그인 처리
+    loginService.login(form);
+
+    return "redirect:/"; // 로그인 성공시 메인페이지 / 이동
+  }
+  @RequestMapping("/logout")
+  public String logout(HttpSession session){
+    session.invalidate(); //세션 비우기
+
+    return  "redirect:/member/login";// 로그인 페이지 이동
   }
   @GetMapping("/list")
   public String members(Model model){
@@ -101,8 +121,8 @@ public class MemberController {
     return "member/list";
   }
 
-  @InitBinder
-  protected void initBinder(WebDataBinder binder){
-    binder.setValidator(joinValidator);
-  }
+//  @InitBinder
+//  protected void initBinder(WebDataBinder binder){
+//    binder.setValidator(joinValidator);
+//  }
 }
