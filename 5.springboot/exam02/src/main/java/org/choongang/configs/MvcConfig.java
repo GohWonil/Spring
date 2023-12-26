@@ -1,4 +1,4 @@
-package main.java.org.choongang.configs;
+package org.choongang.configs;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

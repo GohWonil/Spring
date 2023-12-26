@@ -1,4 +1,4 @@
-package test.java.org.choongang.jpaex;
+package org.choongang.jpaex;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
