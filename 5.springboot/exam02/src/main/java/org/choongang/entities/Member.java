@@ -2,6 +2,7 @@ package org.choongang.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.choongang.commons.MemberType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -9,13 +10,16 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.lang.annotation.ElementType;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name="USERS",
-        indexes = @Index(name="idx_member_createdAt", columnList = "createdAt DESC"))
+//@Table(name="USERS",
+//        indexes = @Index(name="idx_member_createdAt", columnList = "createdAt DESC"))
 //@EntityListeners(AuditingEntityListener.class)
 public class Member extends Base {
     @Id @GeneratedValue
@@ -29,13 +33,21 @@ public class Member extends Base {
 
     @Column(length=65, name="userPw", nullable = false)
     private String password; // varchar2
-    //@Lob
-    @Transient
-    private String introduction; // CLOB
+//    //@Lob
+//    @Transient
+//    private String introduction; // CLOB
 
     @Enumerated(EnumType.STRING)
     @Column(length=10)
     private MemberType type;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "member", fetch=FetchType.LAZY)
+    private List<BoardData> items = new ArrayList<>();
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "addressNo")
+    private Address address;
     /*
    // @CreationTimestamp // INSERT SQL 실행시
     @CreatedDate
